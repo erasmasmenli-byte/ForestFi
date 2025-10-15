@@ -1,0 +1,25 @@
+name: Clarity Syntax Check
+
+on:
+  push:
+    branches: [ main, development ]
+  pull_request:
+    branches: [ main ]
+
+jobs:
+  check-contracts:
+    runs-on: ubuntu-latest
+    
+    steps:
+    - uses: actions/checkout@v3
+    
+    - name: Install Clarinet
+      uses: hirosystems/clarinet-install@v1
+      with:
+        clarinet-version: "latest"
+    
+    - name: Check contract syntax
+      run: clarinet check
+      
+    - name: Run contract tests
+      run: clarinet test
